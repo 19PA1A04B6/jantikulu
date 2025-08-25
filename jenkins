@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Run Python Script') {
             steps {
-                sh 'python3 Smaple.py'
+                sh 'python3 Smaple.py > reports/output.txt'
             }
         }
         stage('Save Output to Git') {
@@ -13,7 +13,7 @@ pipeline {
                 git config user.email "19pa1a04a3@vishnu.edu.in"
                 git config user.name "19PA1A04B6"
                 # Example: save test report
-                cp build/test-results/test/TEST-*.xml reports/
+                cp reports/output.txt
  
                 git add reports/
                 git commit -m "Add test reports from Jenkins build ${BUILD_NUMBER}" || echo "No changes to commit"
