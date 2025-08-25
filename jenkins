@@ -7,5 +7,19 @@ pipeline {
                 sh 'python3 Smaple.py'
             }
         }
+        stage('Save Output to Git') {
+            steps {
+                sh '''
+                git config user.email "jenkins@example.com"
+                git config user.name "Jenkins CI"
+                # Example: save test report
+                cp build/test-results/test/TEST-*.xml reports/
+ 
+                git add reports/
+                git commit -m "Add test reports from Jenkins build ${BUILD_NUMBER}" || echo "No changes to commit"
+                git push origin HEAD:main
+                '''
+            }
+        }
     }
 }
