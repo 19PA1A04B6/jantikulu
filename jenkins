@@ -22,7 +22,7 @@ pipeline {
         stage('Commit & Push Output') {
             steps {
                 sh '''
-                    git config user.email "19pa1a04a3@vishnu.edu.in"
+                    git config user.email "19pa1a04b6@vishnu.edu.in"
                     git config user.name "19PA1A04B6"
 
                     git add reports/output.txt
