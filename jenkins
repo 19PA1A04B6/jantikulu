@@ -7,6 +7,14 @@ pipeline {
                 sh 'python3 Smaple.py > reports/output.txt'
             }
         }
+        stage('Run Python Script') {
+            steps {
+                sh '''
+                mkdir -p reports
+                python3 Smaple.py > reports/output.txt
+                '''
+            }
+        }
         stage('Save Output to Git') {
             steps {
                 sh '''
