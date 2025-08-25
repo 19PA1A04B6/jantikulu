@@ -17,7 +17,7 @@ pipeline {
                 git config user.email "19pa1a04a3@vishnu.edu.in"
                 git config user.name "19PA1A04B6"
                 # Example: save test report
-                cp reports/output.txt
+                cp reports/output.txt madhu
  
                 git add reports/
                 git commit -m "Add test reports from Jenkins build ${BUILD_NUMBER}" || echo "No changes to commit"
