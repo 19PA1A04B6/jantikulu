@@ -21,14 +21,17 @@ pipeline {
 
         stage('Commit & Push Output') {
             steps {
-                sh '''
-                    git config user.email "19pa1a04b6@vishnu.edu.in"
-                    git config user.name "19PA1A04B6"
+                withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                    sh '''
+                        git config user.email "19pa1a04a3@vishnu.edu.in"
+                        git config user.name "19PA1A04B6"
 
-                    git add reports/output.txt
-                    git commit -m "Jenkins: Save Python output" || echo "No changes to commit"
-                    git push origin main
-                '''
+                        git add reports/output.txt
+                        git commit -m "Jenkins: Save Python output" || echo "No changes to commit"
+
+                        git push https://$GIT_USER:$GIT_PASS@github.com/19PA1A04B6/jantikulu.git main
+                    '''
+                }
             }
         }
     }
