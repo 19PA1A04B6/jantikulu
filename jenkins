@@ -2,26 +2,32 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/19PA1A04B6/jantikulu.git',
+                    credentialsId: 'github-creds'
+            }
+        }
+
         stage('Run Python Script') {
             steps {
                 sh '''
-                mkdir -p reports
-                python3 Smaple.py > reports/output.txt
+                    mkdir -p reports
+                    python3 Smaple.py > reports/output.txt
                 '''
             }
         }
-        stage('Save Output to Git') {
+
+        stage('Commit & Push Output') {
             steps {
                 sh '''
-                git init
-                git config user.email "19pa1a04a3@vishnu.edu.in"
-                git config user.name "19PA1A04B6"
-                # Example: save test report
-                cp reports/output.txt madhu
- 
-                git add reports/
-                git commit -m "Add test reports from Jenkins build ${BUILD_NUMBER}" || echo "No changes to commit"
-                git push origin HEAD:main
+                    git config user.email "19pa1a04a3@vishnu.edu.in"
+                    git config user.name "19PA1A04B6"
+
+                    git add reports/output.txt
+                    git commit -m "Jenkins: Save Python output" || echo "No changes to commit"
+                    git push origin main
                 '''
             }
         }
